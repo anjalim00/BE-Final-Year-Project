@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+<div class="row m-3" >
+	<div class="dropdown mb-2">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="title" data-bs-toggle="dropdown" aria-expanded="false">
+		Dropdown button
+	  </button>
+	  <ul class="dropdown-menu">
+		<li><a class="dropdown-item" href="#">Summary</a></li>
+		<li><a class="dropdown-item" href="#">Notes</a></li>
+	  </ul>
+	</div>
+	<div class="col-md-3">
+		<div class="card border border-3" style="height:70vh; overflow-y:auto">
+		  <ul class="list-group list-group-flush">
+			<li class="list-group-item"><a href="#" style="text-decoration: None">An item</a></li>
+			<li class="list-group-item"><a href="#" style="text-decoration: None">A second item</a></li>
+			<li class="list-group-item"><a href="#" style="text-decoration: None">A third item</a></li>
+			<li class="list-group-item"></li>
+		  </ul>
+		</div>
+	</div>
+	<div class="col-sm-8 mt-sm-3 mt-lg-0">
+		<div class="card border border-3 bg-light" style="height:70vh; overflow-y:auto">
+			<div class="card-body">
+				This is some text within a card body.
+			</div>
+		</div>
+    </div>
+</div>
+{% endblock %}

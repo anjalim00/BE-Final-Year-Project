@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Sign Up{% endblock %}
+{% block body %}
+	<!-- Form Initiation -->
+	<main class="mb-4">
+  	<div class="container px-4 px-lg-5" style="margin-top: 4.5rem;">
+    	<div class="row gx-4 gx-lg-5 justify-content-center">
+      	<div class="col-md-10 col-lg-6">
+				  <form class="container" action="/register" method="POST">
+						<div class="my-3">
+						<label for="fname" class="form-label">First Name<span style="color:red"> *</span></label>
+						<input type="text" class="form-control" id="fname" name="fname" required>
+						{% if errorName is defined %}
+				  			<div class="text-danger">{{ errorName }}</div>
+						{% endif %}
+						</div>
+
+						<div class="mb-3">
+						<label for="lname" class="form-label">Last Name<span style="color:red"> *</span></label>
+						<input type="text" class="form-control" id="lname" name="lname" required>
+						{% if errorPass is defined %}
+				  			<div class="text-danger">{{ errorName }}</div>
+						{% endif %}
+						</div>
+
+						<div class="mb-3">
+						<label for="user_email" class="form-label">Email address<span style="color:red"> *</span></label>
+						<input type="email" class="form-control" id="user_email" name="user_email" required>
+						{% if errorEmail is defined %}
+				  			<div class="text-danger">{{ errorEmail }}</div>
+						{% endif %}
+						</div>
+			
+						<div class="mb-3">
+						<label for="pass" class="form-label">Password<span style="color:red"> *</span></label>
+						<input type="password" class="form-control" id="pass" name="pass" required>
+						{% if errorPass is defined %}
+				  			<div class="text-danger">{{ errorPass }}</div>
+						{% endif %}
+						<div class="form-text">Password should be 8-20 characters long and it should contain
+						atleast one uppercase, lowercase, digit and special character(*&%@#)</div>
+						</div>
+
+						<div class="mb-3">
+						<label for="confirm_pass" class="form-label">Confirm Password<span style="color:red"> *</span></label>
+						<input type="password" class="form-control" id="confirm_pass" name="confirm_pass" required>
+						{% if errorConfirmPass is defined %}
+				  			<div class="text-danger">{{ errorConfirmPass }}</div>
+						{% endif %}
+						</div>
+
+						<div class="mb-3">
+						<fieldset class="row mb-3">
+							<legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+								<div class="col-sm-10">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="gen" id="male" value="M" checked>
+										<label class="form-check-label" for="male">
+											Male
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="gen" id="female" value="F">
+										<label class="form-check-label" for="female">
+											Female
+										</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="gen" id="other" value="Oth">
+										<label class="form-check-label" for="other">
+											Other
+										</label>
+									</div>
+								</div>
+						</fieldset>
+						</div>
+			
+						<!--<div class="mb-3 form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1">
+						<label class="form-check-label" for="exampleCheck1">Check me out</label>
+						</div> -->
+						<button type="submit" class="btn btn-primary mb-3" style="width: 100%">Register</button>
+						</form>
+						<p class="small text-center fs-5">Already have an account? <a href="/login" class="text-decoration-none">Sign In</a></p>
+					</div>
+        </div>
+      </div>
+    </div>
+  </main>
+ {% endblock %}

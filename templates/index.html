@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+    
+    <section style="background-color: #F8F8FF !important; margin-bottom: 2rem;">
+        
+        <div class="container" style="margin-top: 4.5rem;">
+            
+            <div class="row">
+                {% if limitReached is defined %}
+                    <div class="col-md-1"></div>
+                    <div class="alert alert-danger col-11" role="alert">
+                        {{limitReached}}
+                    </div>
+                {% endif %}
+                <div class="col-md-1"></div>
+                <div class="col-lg-5">
+                    <div class="form-floating">
+                        <h5>Input:</h5>
+                        <form action="/" method="POST">
+                            <textarea class="form-control border border-3 border-primary" placeholder="Enter your paragraph here..." name="paragraphInput" id="floatingTextarea2" style="height:30rem; box-shadow: none !important;"></textarea>
+                            <input class="mt-3" type="submit" value="Generate Notes">
+                            <input class="mt-3" type="submit" value="Generate Summary">
+                        </form>
+                        <div class="alert alert-primary mt-3" role="alert">
+                            <span>Or Upload the file :
+                                <form action="/getDataFromFile" method="POST" enctype="multipart/form-data">
+                                    <input type="file" id="filename" name="filename">
+                                    <input type="submit" value="Generate Notes via a file">
+                                </form>
+                            </span>
+                            
+                        </div>
+                    
+                    </div>
+                    
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-lg-5">
+                    <!-- <div class="alert alert-primary" role="alert" style="height: 30rem;">
+                        <h5 class="text-primary text-center mb-3">How To Summarize Your Text?</h5>
+                        <ul>
+                            <li class="mb-3">Copy and paste your content in the given text area</li>
+                            <li class="mb-3">Or upload the file from the device</li>
+                            <li class="mb-3">Click "Summarize" button to generate the output </li>
+                        </ul>
+                        <div>
+                            <h5 class="pt-3 text-primary text-center">Please provide your feedback</h5>
+                        </div>
+                    </div> -->
+                    <h5>Output:</h5>
+                    <div class="editable border border-3 border-primary" contenteditable="true" style="overflow-y: scroll;height: 30rem;background-color: white;">
+                        {% if list1 is defined %}
+                            <ul>
+                                {% for sentence in list1 %}
+                                    <li>{{sentence}}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container-fluid section1" style="background-color: #f8f9fa!important;">
+            <h4 class="text-center pt-2">Why should you try our text summarizer tool?</h4>
+            <div class="row">
+                <!-- <div class="col-1"></div> -->
+                <div class="col-lg-3 pt-4">
+                    <div class="text-center pb-4">
+                        <i class="fas fa-users text-primary" style="font-size: 4.5rem;"></i>
+                    </div>
+                    <h4 class="text-center">Reliable and Convenient</h4>
+                    <p class="text-center">Text Summarizer tool is much easier to use. User can generate a summary or important notes by either copy pasting a paragraph or by uploading a file as an input.</p>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-lg-3 pt-4">
+                    <div class="text-center pb-4">
+                        <i class="fas fa-robot text-primary" style="font-size: 4.5rem;"></i>
+                    </div>
+                    <h4 class="text-center">Powerful technologies</h4>
+                    <p class="text-center">Text Summarizer tool uses powerful and latest technologies like NLP and Machine learning to generate human like summaries and important notes out of a given paragraph</p>
+                </div>
+                <div class="col-1"></div>
+                <div class="col-lg-3 pt-4">
+                    <div class="text-center pb-4">
+                        <i class="fas fa-shield-check text-primary" style="font-size: 4.5rem;"></i>
+                    </div>
+                    <h4 class="text-center">Total Safety</h4>
+                    <p class="text-center">Text or files given as input by the user or the summary generated aren't shared with any third party applications and tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container mt-3">
+            <h4 class="text-primary">How Does This Text Summarizer Work?</h4>
+            <p class="text" style="font-size: 18px;">This tool is quite user-friendly and easy to use.The tool helps to generate important notes and summary out of a given paragraph by using powerful technologies like NLP(Natural langauge processing) which helps in processing textual data. A user can give an input either by copy pasting a paragraph or by uploading a file in any format. Notes are generated by the extractive approach in which the tool simply picks up the important sentences from a paragraph and outputs it. Summary is generated using the abstractive approach in which the tool not only picks the important sentences from a paragraph but also creates some of its new sentences in such a way that the meaning remains unchanged.That's why summaries generated using this tool are more human like.</p>
+            <h4 class="mt-5 text-primary">Summarize Anywhere</h4>
+            <p style="font-size: 18px;">This tool is supported on all devices like laptops,desktops,tablets and mobile phones. By using this tool, the users can summarize their content from any part of the world.</p>
+            <h4 class="mt-5 text-primary">Multiple Languages</h4>
+            <p style="font-size: 18px;">This tool not only supports english language but also hindi language. If a user wants to generate important notes or a summary in hindi language he can achieve it using our tool.</p>
+        </div>
+    </section>
+
+{% endblock %}
