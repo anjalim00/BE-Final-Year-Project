@@ -1,4 +1,4 @@
 *.pyc
 .gitignore
-/.vscode
-/flask_session
+vscode/
+flask_session/
