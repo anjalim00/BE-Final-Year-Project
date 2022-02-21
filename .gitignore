@@ -1,4 +1,3 @@
 *.pyc
-.gitignore
 vscode/
 flask_session/
