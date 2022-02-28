@@ -2,31 +2,52 @@
 {% block title %}Profile{% endblock %}
 {% block body %}
 <div class="row m-3" >
-	<div class="dropdown mb-2">
-	  <button class="btn btn-secondary dropdown-toggle" type="button" id="title" data-bs-toggle="dropdown" aria-expanded="false">
-		Dropdown button
-	  </button>
-	  <ul class="dropdown-menu">
-		<li><a class="dropdown-item" href="#">Summary</a></li>
-		<li><a class="dropdown-item" href="#">Notes</a></li>
-	  </ul>
+	<div class=" mb-2">
+	<form action = "/profile" method="POST">
+	  <input type="submit" name="type" value="Summary" class="btn btn-secondary">
+	  <input type="submit" name="type" value="Notes" class="btn btn-secondary mx-2">
+	</form>
 	</div>
 	<div class="col-md-3">
 		<div class="card border border-3" style="height:70vh; overflow-y:auto">
 		  <ul class="list-group list-group-flush">
-			<li class="list-group-item"><a href="#" style="text-decoration: None">An item</a></li>
-			<li class="list-group-item"><a href="#" style="text-decoration: None">A second item</a></li>
-			<li class="list-group-item"><a href="#" style="text-decoration: None">A third item</a></li>
-			<li class="list-group-item"></li>
+			  {% if type == "Summary" %}
+			  	{% for title in record %}
+			  		{% if title.summary_title != None %}
+						<li class="list-group-item"><a href="#" id= {{ title.sr_no }} onclick="getTitle(this.id)" style="text-decoration: None">
+						{{ title.summary_title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			  {% else %}
+			  	{% for title in record %}
+			  		{% if title.notes_title != None %}
+						<li class="list-group-item"><a href="#" id= {{ title.sr_no }} onclick="getTitle(this.id)" style="text-decoration: None">
+						{{ title.notes_title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			  {% endif %}
+		  	<li class="list-group-item"></li>
 		  </ul>
 		</div>
 	</div>
 	<div class="col-sm-8 mt-sm-3 mt-lg-0">
 		<div class="card border border-3 bg-light" style="height:70vh; overflow-y:auto">
-			<div class="card-body">
-				This is some text within a card body.
+			<div id="result" class="card-body">
+				<i>Summaries or notes will be displayed here.</i>
 			</div>
 		</div>
     </div>
 </div>
+
+<script>
+  $SCRIPT_ROOT = {{ request.script_root|tojson }};
+  function getTitle(clicked_id) {
+      $.getJSON($SCRIPT_ROOT + '/check_selected', {
+        title: clicked_id,
+      }, function(data) {
+      		$("#result").text(data.record);
+      });
+  }
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 {% endblock %}

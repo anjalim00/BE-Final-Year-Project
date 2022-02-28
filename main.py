@@ -196,9 +196,23 @@ def contact():
     else:
         return render_template("contact.html")
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET','POST'])
 def profile():
+    if request.method == "POST":
+        name = request.form.get('type')
+        record = User_history.query.filter_by(email=session.get("email")).all()
+        if record is not None:
+            return render_template("profile.html", record=record, type=name)
     return render_template("profile.html")
+
+@app.route('/check_selected', methods=['GET', 'POST'])
+def check_selected():
+    title_id = request.args.get('title', 0, type=int)
+    record = User_history.query.get(title_id)
+    if record.previous_notes is not None :
+        return jsonify(record=record.previous_notes)
+    else:
+        return jsonify(record=record.previous_summaries)
 
 # @app.route("/extractive")
 # def extractiveSummarization():

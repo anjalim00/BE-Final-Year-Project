@@ -18,9 +18,7 @@
 		      
 		      <div class="form-group mb-4">
 		          <label for="user_pass">Password</label>
-		          <div class="d-flex justify-content-end">
-					<a class="form-sublink text-decoration-none" href="#">Forgot password?</a>
-				  </div>
+		          <a class="form-sublink float-end" style="font-size:13px; text-decoration:none" href="#">Forgot password?</a>
 		          <input type="password" name="pwd" id="user_pass" class="form-control" value="" required>
 				  {% if error1 is defined %}
 				  	<div class="text-danger">{{ error1 }}</div>
@@ -33,7 +31,7 @@
 		  		</div>
 
     		</form>
-    		<p class="small text-center fs-5">Don't have an account yet? <a href="/register" class="text-decoration-none">Sign up</a></p>
+    		<p class="small text-center" style="font-size:13px">Don't have an account yet? <a href="/register" class="text-decoration-none">Sign up</a></p>
     	</div>
     </div>
 	</div>
