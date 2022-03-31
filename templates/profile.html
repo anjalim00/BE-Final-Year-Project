@@ -1,39 +1,51 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 {% block body %}
+<div style="margin-top: 4.5rem;"></div>
 <div class="row m-3" >
 	<div class=" mb-2">
 	<form action = "/profile" method="POST">
-	  <input type="submit" name="type" value="Summary" class="btn btn-secondary">
-	  <input type="submit" name="type" value="Notes" class="btn btn-secondary mx-2">
+	  <input type="submit" name="Summary" value="Summary" class="btn btn-secondary">
+	  <input type="submit" name="Notes" value="Notes" class="btn btn-secondary mx-2">
 	</form>
 	</div>
 	<div class="col-md-3">
-		<div class="card border border-3" style="height:70vh; overflow-y:auto">
+		<div class="card border border-3 overflow-auto" style="height:70vh; overflow-y:auto">
 		  <ul class="list-group list-group-flush">
-			  {% if type == "Summary" %}
-			  	{% for title in record %}
-			  		{% if title.summary_title != None %}
-						<li class="list-group-item"><a href="#" id= {{ title.sr_no }} onclick="getTitle(this.id)" style="text-decoration: None">
-						{{ title.summary_title }}</a></li>
-					{% endif %}
-				{% endfor %}
-			  {% else %}
-			  	{% for title in record %}
-			  		{% if title.notes_title != None %}
-						<li class="list-group-item"><a href="#" id= {{ title.sr_no }} onclick="getTitle(this.id)" style="text-decoration: None">
-						{{ title.notes_title }}</a></li>
-					{% endif %}
-				{% endfor %}
-			  {% endif %}
-		  	<li class="list-group-item"></li>
+			  <!-- Generating Note's titles -->
+			{% if records is defined and name2 is defined%}
+				{% if records|length %}
+					{% for record in records %}
+						{% if record.notes_title|length %}
+							<li>{{record.notes_title}}</li>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<p>You haven't generated notes yet!!</p>
+				{% endif %}
+			{% endif %}
+			<!-- Generating summary's titles -->
+			{% if records is defined and name1 is defined %}
+				{% if records|length %}
+					{% for record in records %}
+						{% if record.summary_title|length %}
+							<li><button type="button" id={{record.sr_no}} onclick="getTitle(this.id)">{{record.summary_title}}</button></li>
+						{% endif %}
+					{% endfor %}
+				{% else %}
+					<p>You haven't generated summaries yet!!</p>
+				{% endif %}
+			{% endif %}
 		  </ul>
 		</div>
 	</div>
 	<div class="col-sm-8 mt-sm-3 mt-lg-0">
 		<div class="card border border-3 bg-light" style="height:70vh; overflow-y:auto">
-			<div id="result" class="card-body">
+			<div id ="result" class="card-body">
 				<i>Summaries or notes will be displayed here.</i>
+				<!-- {% if record1 is defined %}
+					{{record1.summary}}
+				{% endif %} -->
 			</div>
 		</div>
     </div>
@@ -42,10 +54,11 @@
 <script>
   $SCRIPT_ROOT = {{ request.script_root|tojson }};
   function getTitle(clicked_id) {
+	  console.log(clicked_id);
       $.getJSON($SCRIPT_ROOT + '/check_selected', {
         title: clicked_id,
       }, function(data) {
-      		$("#result").text(data.record);
+      		$("#result").text(data.record1);
       });
   }
 </script>
