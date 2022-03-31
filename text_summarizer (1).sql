@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 17, 2022 at 06:56 PM
+-- Generation Time: Mar 31, 2022 at 05:49 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -31,6 +31,13 @@ CREATE TABLE `ip_address_details` (
   `ip_address` varchar(20) NOT NULL,
   `count` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ip_address_details`
+--
+
+INSERT INTO `ip_address_details` (`ip_address`, `count`) VALUES
+('127.0.0.1', '2');
 
 -- --------------------------------------------------------
 
@@ -60,12 +67,21 @@ INSERT INTO `registration` (`first_name`, `last_name`, `email`, `user_password`,
 --
 
 CREATE TABLE `user_history` (
-  `email` varchar(50) DEFAULT NULL,
-  `summary_title` varchar(100) DEFAULT NULL,
+  `sr_no` int(11) NOT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `notes_title` varchar(30) NOT NULL,
+  `notes` varchar(100) DEFAULT NULL,
+  `summary_title` varchar(30) DEFAULT NULL,
   `summary` varchar(100) DEFAULT NULL,
-  `notes_title` varchar(100) DEFAULT NULL,
-  `notes` varchar(100) DEFAULT NULL
+  `date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_history`
+--
+
+INSERT INTO `user_history` (`sr_no`, `email`, `notes_title`, `notes`, `summary_title`, `summary`, `date`) VALUES
+(0, 'kevinkhimasia13@gmail.com', 'Chess is the most interesting ', 'Chess is a board game played between two players. It is sometimes called Western chess or internatio', 'Chess is a mind sport', 'Chess is a board game played between two players. It is sometimes called Western chess or internatio', '2022-03-25 13:14:44');
 
 --
 -- Indexes for dumped tables
@@ -87,17 +103,8 @@ ALTER TABLE `registration`
 -- Indexes for table `user_history`
 --
 ALTER TABLE `user_history`
-  ADD KEY `email` (`email`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `user_history`
---
-ALTER TABLE `user_history`
-  ADD CONSTRAINT `user_history_ibfk_1` FOREIGN KEY (`email`) REFERENCES `registration` (`email`);
+  ADD PRIMARY KEY (`sr_no`),
+  ADD UNIQUE KEY `email` (`email`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
