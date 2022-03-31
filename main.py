@@ -1,6 +1,4 @@
-from asyncio.windows_events import NULL
 from fileinput import filename
-import imp
 from ipaddress import ip_address
 from flask_mail import Mail
 from flask import Flask, jsonify, render_template,redirect, request,session, url_for
@@ -46,7 +44,7 @@ class IpAddressDetails(db.Model):
 
 class UserHistory(db.Model):
     sr_no = db.Column(db.Integer(),nullable=False,primary_key=True)
-    email = db.Column(db.String(20),unique=True,nullable=False)
+    email = db.Column(db.String(20),unique=False,nullable=False)
     notes_title = db.Column(db.String(30),unique=False,nullable=True)
     notes = db.Column(db.String(100),unique=False,nullable=True)
     summary_title = db.Column(db.String(30),unique=False,nullable=True)
@@ -69,6 +67,7 @@ def home():
                 limitReached = "Sorry you have reached the maximum limit of 3. If you wish to use our tools then kindly register on our website"
                 return render_template("index.html",limitReached=limitReached,temp=temp)
         textInput = request.form.get("paragraphInput")
+        title = request.form.get("title")
         if session.get('email') is None and len(textInput)>1000:
             wordSizeLimit = "Length of the input should not exceed 1000 words"
             return render_template("index.html",wordSizeLimit=wordSizeLimit)
@@ -109,7 +108,9 @@ def home():
         count=count+1
         if session.get('email') is not None:
             email = session.get('email')
-            entry = UserHistory(email=email,)
+            entry = UserHistory(email=email,notes_title=title,notes=summary)
+            db.session.add(entry)
+            db.session.commit()
         if session.get("email") is None:
             if record is None:
                 entry = IpAddressDetails(ip_address=ipAddress,count=count)
